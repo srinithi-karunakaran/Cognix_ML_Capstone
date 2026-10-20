@@ -1,0 +1,5 @@
+streamlit
+scikit-learn==REPLACE_WITH_YOUR_VERSION
+pandas
+numpy
+joblib
