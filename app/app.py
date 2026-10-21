@@ -63,12 +63,12 @@ def build_preprocessor(X, scale=False):
 
 def candidates(track):
     if track == "Regression":
+        # Best model identified in the regression notebook after GridSearchCV tuning.
+        # Tuned Gradient Boosting Regressor: learning_rate=0.1, max_depth=4, n_estimators=300.
         return {
-            "Random Forest Regressor": RandomForestRegressor(n_estimators=120, random_state=42, n_jobs=-1, min_samples_leaf=2),
-            "Extra Trees Regressor": ExtraTreesRegressor(n_estimators=120, random_state=42, n_jobs=-1, min_samples_leaf=2),
-            "Gradient Boosting Regressor": GradientBoostingRegressor(random_state=42),
-            "Ridge Regression": Ridge(),
-            "Decision Tree Regressor": DecisionTreeRegressor(random_state=42, min_samples_leaf=3),
+            "Tuned Gradient Boosting Regressor": GradientBoostingRegressor(
+                learning_rate=0.1, max_depth=4, n_estimators=300, random_state=42
+            ),
         }
     return {
         "Random Forest Classifier": RandomForestClassifier(n_estimators=120, random_state=42, n_jobs=-1, class_weight="balanced_subsample"),
@@ -189,7 +189,7 @@ except Exception as exc:
 df = result["df"]
 st.markdown(f"## {track}")
 if track == "Regression":
-    st.write("Predict a numeric value using the best-performing regression model selected from a held-out test split.")
+    st.write("Predict life expectancy using the Tuned Gradient Boosting Regressor (the best regression model from our notebook).")
 elif track == "Classification":
     st.write("Estimate whether a customer will churn using the best-performing classifier selected from a held-out test split.")
 else:
